@@ -1,0 +1,193 @@
+{
+  "WhitelistedUsers": {
+    "4768474869": {
+      "attackable": false,
+      "level": 1,
+      "tags": [
+        {
+          "text": "PV+ OWNER",
+          "color": [
+            13,
+            41,
+            82
+          ]
+        }
+      ]
+    },
+    "4768458276": {
+      "attackable": false,
+      "level": 1,
+      "tags": [
+        {
+          "text": "PV+ OWNER",
+          "color": [
+            13,
+            41,
+            82
+          ]
+        }
+      ]
+    },
+    "4595731151": {
+      "attackable": false,
+      "level": 1,
+      "tags": [
+        {
+          "text": "PV+ OWNER",
+          "color": [
+            13,
+            41,
+            82
+          ]
+        }
+      ]
+    },
+    "4676567250": {
+      "attackable": false,
+      "level": 1,
+      "tags": [
+        {
+          "text": "PV+ OWNER",
+          "color": [
+            13,
+            41,
+            82
+          ]
+        }
+      ]
+    },
+    "4768417093": {
+      "attackable": false,
+      "level": 1,
+      "tags": [
+        {
+          "text": "PV+ OWNER",
+          "color": [
+            13,
+            41,
+            82
+          ]
+        }
+      ]
+    },
+    "4791188530": {
+      "attackable": false,
+      "level": 1,
+      "tags": [
+        {
+          "text": "PV+ OWNER",
+          "color": [
+            13,
+            41,
+            82
+          ]
+        }
+      ]
+    },
+    "3872667823": {
+      "attackable": false,
+      "level": 1,
+      "tags": [
+        {
+          "text": "AC MOD",
+          "color": [
+            255,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "WhitelistedTags": {
+    "1161080526": [
+      {
+        "text": "008",
+        "color": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "4820509369": [
+      {
+        "text": "Lemon Owner",
+        "color": [
+          255,
+          255,
+          0
+        ]
+      }
+    ],
+    "3800937614": [
+      {
+        "text": "NightWare Owner",
+        "color": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "4866281693": [
+      {
+        "text": "NightWare Owner",
+        "color": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "4870190215": [
+      {
+        "text": "MEGA HORNY GUYS",
+        "color": [
+          255,
+          255,
+          0
+        ]
+      }
+    ],
+    "4838993760": [
+      {
+        "text": "Retard Guys",
+        "color": [
+          255,
+          0,
+          0
+        ]
+      }
+    ],
+    "4869892282": [
+      {
+        "text": "NightShade",
+        "color": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "3660810631": [
+      {
+        "text": "AC MOD",
+        "color": [
+          255,
+          0,
+          0
+        ]
+      }
+    ],
+    "4829059353": [
+      {
+        "text": "AntiWare Owner",
+        "color": [
+          255,
+          0,
+          0
+        ]
+      }
+    },
+  "BlacklistedUsers": []
+}
