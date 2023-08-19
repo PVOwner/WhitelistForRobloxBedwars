@@ -1,1 +1,10 @@
-{"Mario": [{"id": "4768474869"}, {"id": "4768458276"}, {"id": "4595731151"}, {"id": "4676567250"}, {"id": "4768417093"}, {"id": "4791188530"}, {"id": "3872667823"}],"Private": [{"id": "1161080526"}, {"id": "4820509369"}, {"id": "3800937614"}, {"id": "4866281693"}, {"id": "4870190215"}, {"id": "4838993760"}, {"id": "4869892282"}, {"id": "4688722027"}, {"id": "3660810631"}, {"id": "4829059353"}],"tags": [{"userid": "1161080526", "tag": "008", "color": "black"}, {"userid": "4820509369", "tag": "Lemon Private Owner", "color": "yellow"}, {"userid": "3800937614", "tag": "NightWare Owner", "color": "black"}, {"userid": "4866281693", "tag": "NightWare Owner", "color": "black"}, {"userid": "4768474869", "tag": "AC MOD", "color": "red"}, {"userid": "4768458276", "tag": "AC MOD", "color": "red"}, {"userid": "4595731151", "tag": "AC MOD", "color": "red"}, {"userid": "4676567250", "tag": "AC MOD", "color": "red"}, {"userid": "4768417093", "tag": "AC MOD", "color": "red"}, {"userid": "4791188530", "tag": "AC MOD", "color": "red"}, {"userid": "3872667823", "tag": "AC MOD", "color": "red"}, {"userid": "4870190215", "tag": "MEGA HORNY GUYS", "color": "yellow"}, {"userid": "4838993760", "tag": "Retard Guys", "color": "red"}, {"userid": "4869892282", "tag": "Nightshade", "color": "black"}, {"userid": "3660810631", "tag": "AC MOD", "color": "red"}, {"userid": "4829059353", "tag": "AntiWare Owner", "color": "red"}],
+{
+  "BlacklistedUser1": {
+    "users": ["4820509369"],
+    "color": "#FF0000"
+  },
+  "BlacklistedUser2": {
+    "users": ["maybe_,more", "even_more"],
+    "color": "#FF0000"
+  }
+}
