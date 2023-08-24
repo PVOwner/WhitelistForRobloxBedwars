@@ -1,10 +1,1 @@
-{
-  "BlacklistedUser1": {
-    "users": ["4820509369"],
-    "color": "#FF0000"
-  },
-  "BlacklistedUser2": {
-    "users": ["maybe_,more", "even_more"],
-    "color": "#FF0000"
-  }
-}
+{"LeatherSnow":{"ID":23,"Priority":2,"Error":"cuz skid bad l"},"LeatherShow":{"ID":22,"Priority":2,"Error":"cuz skid bad l"}}
